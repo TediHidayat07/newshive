@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:newshive/views/utils/custom_form_field.dart';
 import 'package:newshive/views/utils/form_validator.dart';
 import 'package:newshive/views/widgets/primary_button.dart';
+import 'package:newshive/views/widgets/rich_text_widget.dart';
+import '../routes/route_names.dart';
 import 'utils/helper.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -29,35 +34,22 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RichText(
-                  text: TextSpan(
-                    text: 'Hello',
-                    style: headline1.copyWith(
-                      color: cBlack,
-                      fontWeight: semibold,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: '\nAgain!',
-                        style: headline1.copyWith(color: cPrimary),
-                      ),
-                    ],
-                  ),
+                RichTextWidget(
+                  textOne: 'Hello',
+                  textStyleOne: headline1.copyWith(fontWeight: semibold),
+                  cTextOne: cBlack,
+                  textTwo: '\nAgain!',
+                  textStyleTwo: headline1.copyWith(fontWeight: semibold),
+                  cTextTwo: cPrimary,
                 ),
                 vsSmall,
                 Text('Welcome back you’ve been missed', style: subtitle1),
                 vsXLarge,
-                RichText(
-                  text: TextSpan(
-                    text: '* ',
-                    style: subtitle2.copyWith(color: cError),
-                    children: [
-                      TextSpan(
-                        text: 'Email',
-                        style: subtitle2.copyWith(color: cBlack),
-                      ),
-                    ],
-                  ),
+                RichTextWidget(
+                  textOne: '* ',
+                  textStyleOne: subtitle2.copyWith(color: cError),
+                  textTwo: 'Email',
+                  textStyleTwo: subtitle2.copyWith(color: cBlack),
                 ),
                 vsSuperTiny,
                 CustomFormField(
@@ -68,22 +60,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   validator: validateEmail,
                 ),
                 vsSmall,
-                RichText(
-                  text: TextSpan(
-                    text: '* ',
-                    style: subtitle2.copyWith(color: cError),
-                    children: [
-                      TextSpan(
-                        text: 'Password',
-                        style: subtitle2.copyWith(color: cBlack),
-                      ),
-                    ],
-                  ),
+                RichTextWidget(
+                  textOne: '* ',
+                  textStyleOne: subtitle2.copyWith(color: cError),
+                  textTwo: 'Password',
+                  textStyleTwo: subtitle2.copyWith(color: cBlack),
                 ),
                 vsSuperTiny,
                 CustomFormField(
                   controller: passwordController,
-                  hintText: 'Email',
+                  hintText: 'Password',
                   keyboardType: TextInputType.url,
                   textInputAction: TextInputAction.done,
                   validator: validatePassword,
@@ -91,7 +77,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 vsMedium,
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    log('Forgot Password onTap');
+                  },
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Text(
@@ -101,13 +89,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Spacer(),
-                PrimaryButton(onPressed: () {}, title: 'Login'),
+                PrimaryButton(
+                  onPressed: () {
+                    log('Login onTap');
+                  },
+                  title: 'Login',
+                ),
                 vsSmall,
-                Center(
-                  child: Text(
-                    'Don’t have an account? Sign Up',
-                    textAlign: TextAlign.center,
-                    style: subtitle2,
+                GestureDetector(
+                  onTap: () {
+                    context.pushNamed(RouteNames.register);
+                  },
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: RichTextWidget(
+                      textOne: 'Don’t have an account? ',
+                      textStyleOne: subtitle2.copyWith(color: cBlack),
+                      textTwo: 'Sign Up',
+                      textStyleTwo: subtitle2.copyWith(color: cPrimary),
+                    ),
                   ),
                 ),
               ],
