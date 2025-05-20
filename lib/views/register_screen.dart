@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'utils/custom_form_field.dart';
+import 'widgets/custom_form_field.dart';
 import 'utils/form_validator.dart';
 import 'utils/helper.dart';
 import 'widgets/primary_button.dart';

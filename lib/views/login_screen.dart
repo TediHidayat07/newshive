@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newshive/views/utils/custom_form_field.dart';
+import 'package:newshive/views/widgets/custom_form_field.dart';
 import 'package:newshive/views/utils/form_validator.dart';
 import 'package:newshive/views/widgets/primary_button.dart';
 import 'package:newshive/views/widgets/rich_text_widget.dart';
