@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newshive/views/widgets/custom_form_field.dart';
@@ -72,6 +71,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintText: 'Password',
                   keyboardType: TextInputType.url,
                   textInputAction: TextInputAction.done,
+                  suffixIcon: IconButton(
+                    onPressed: togglePasswordVisibility,
+                    icon:
+                        isObscure
+                            ? const Icon(Icons.visibility_outlined)
+                            : const Icon(Icons.visibility_off_outlined),
+                  ),
                   validator: validatePassword,
                   obscureText: isObscure,
                 ),
@@ -92,6 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 PrimaryButton(
                   onPressed: () {
                     log('Login onTap');
+                    context.goNamed(RouteNames.main);
                   },
                   title: 'Login',
                 ),

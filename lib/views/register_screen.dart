@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import '../routes/route_names.dart';
 import 'widgets/custom_form_field.dart';
 import 'utils/form_validator.dart';
 import 'utils/helper.dart';
@@ -96,6 +97,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   hintText: 'Password',
                   keyboardType: TextInputType.url,
                   textInputAction: TextInputAction.done,
+                  suffixIcon: IconButton(
+                    onPressed: togglePasswordVisibility,
+                    icon:
+                        isObscure
+                            ? const Icon(Icons.visibility_outlined)
+                            : const Icon(Icons.visibility_off_outlined),
+                  ),
                   validator: validatePassword,
                   obscureText: isObscure,
                 ),
@@ -103,6 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 PrimaryButton(
                   onPressed: () {
                     log('Register onTap');
+                    context.goNamed(RouteNames.login);
                   },
                   title: 'Register',
                 ),

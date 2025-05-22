@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:newshive/views/main_screen.dart';
 import '../views/introduction_screen.dart';
 import '../views/login_screen.dart';
 import '../views/register_screen.dart';
@@ -46,6 +47,11 @@ class AppRouter {
               pageBuilder: (_, __) => MaterialPage(child: RegisterScreen()),
             ),
           ],
+        ),
+        GoRoute(
+          path: '/main',
+          name: RouteNames.main,
+          pageBuilder: (context, state) => MaterialPage(child: MainScreen()),
         ),
       ],
     );

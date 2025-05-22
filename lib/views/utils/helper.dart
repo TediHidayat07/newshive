@@ -39,11 +39,6 @@ Widget spacedDivider = Column(
   ],
 );
 
-//* Screen
-Widget verticalSpace(double height) => SizedBox(height: height);
-double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
-double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
-
 //* Font Weight
 FontWeight thin = FontWeight.w100;
 FontWeight extralight = FontWeight.w200;
@@ -94,15 +89,4 @@ BoxDecoration fieldDecortaion = BoxDecoration(
 BoxDecoration disabledFieldDecortaion = BoxDecoration(
   borderRadius: BorderRadius.circular(5),
   color: Colors.grey[100],
-);
-
-//* Field Variables
-const double fieldHeight = 55;
-const double smallFieldHeight = 40;
-const double inputFieldBottomMargin = 30;
-const double inputFieldSmallBottomMargin = 0;
-const EdgeInsets fieldPadding = EdgeInsets.symmetric(horizontal: 15);
-const EdgeInsets largeFieldPadding = EdgeInsets.symmetric(
-  horizontal: 15,
-  vertical: 15,
 );

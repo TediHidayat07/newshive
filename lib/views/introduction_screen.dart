@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newshive/views/widgets/primary_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../routes/route_names.dart';
 import 'utils/helper.dart';
+import 'widgets/primary_button.dart';
 import 'widgets/secondary_button.dart';
 
 class IntroductionScreen extends StatefulWidget {
