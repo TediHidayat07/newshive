@@ -1,8 +1,9 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newshive/views/utils/helper.dart';
+import 'package:newshive/views/widgets/profile_menu_tile.dart';
+import 'widgets/profile_data_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -50,113 +51,60 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       vsSmall,
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Text('Name', style: subtitle1),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              ': Theresa Web',
-                              style: subtitle1.copyWith(fontWeight: semibold),
-                            ),
-                          ),
-                        ],
+                      ProfileDataWidget(
+                        profile: 'Name',
+                        dataProfile: ': Theresa Webb',
                       ),
                       vsTiny,
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Text('Email', style: subtitle1),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              ': theresa_we@gmail.com',
-                              style: subtitle1.copyWith(fontWeight: semibold),
-                            ),
-                          ),
-                        ],
+                      ProfileDataWidget(
+                        profile: 'Email',
+                        dataProfile: ': theresa_we@gmail.com',
                       ),
                       vsTiny,
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Text('Number', style: subtitle1),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              ': 089876543210',
-                              style: subtitle1.copyWith(fontWeight: semibold),
-                            ),
-                          ),
-                        ],
+                      ProfileDataWidget(
+                        profile: 'Number',
+                        dataProfile: ': 089876543210',
                       ),
                       vsTiny,
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Text('Address', style: subtitle1),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              ': Jl. Cangkring Raya, Maleer, Kec. Batununggal, Kota Bandung, Jawa Barat',
-                              style: subtitle1.copyWith(fontWeight: semibold),
-                            ),
-                          ),
-                        ],
+                      ProfileDataWidget(
+                        profile: 'Address',
+                        dataProfile:
+                            ': Jl. Cangkring Raya, Maleer, Kec. Batununggal, Kota Bandung, Jawa Barat',
                       ),
                     ],
                   ),
                 ),
                 vsLarge,
-                ListTile(
+                ProfileMenuTile(
+                  title: 'Edit Profile',
                   onTap: () {
                     log('Edit Profile onTap');
                   },
                   leading: Icon(Icons.border_color_outlined, color: cBlack),
-                  title: Text(
-                    'Edit Profile',
-                    style: subtitle1.copyWith(fontWeight: semibold),
-                  ),
                   trailing: Icon(
                     Icons.keyboard_arrow_right_rounded,
                     color: cBlack,
                   ),
                 ),
                 Divider(color: cBlack, height: 4.0),
-                ListTile(
+                ProfileMenuTile(
+                  title: 'Edit Password',
                   onTap: () {
                     log('Edit Password onTap');
                   },
                   leading: Icon(Icons.password, color: cBlack),
-                  title: Text(
-                    'Edit Password',
-                    style: subtitle1.copyWith(fontWeight: semibold),
-                  ),
                   trailing: Icon(
                     Icons.keyboard_arrow_right_rounded,
                     color: cBlack,
                   ),
                 ),
                 Divider(color: cBlack, height: 4.0),
-                ListTile(
+                ProfileMenuTile(
+                  title: 'Logout',
                   onTap: () {
                     log('Logout onTap');
                   },
                   leading: Icon(Icons.logout_rounded, color: cBlack),
-                  title: Text(
-                    'Logout',
-                    style: subtitle1.copyWith(fontWeight: semibold),
-                  ),
                   trailing: Icon(
                     Icons.keyboard_arrow_right_rounded,
                     color: cBlack,
