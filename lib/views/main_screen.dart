@@ -31,13 +31,13 @@ class _MainScreenState extends State<MainScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              _currentIndex == 0 ? Icons.bookmark_outline : Icons.bookmark,
+              _currentIndex == 1 ? Icons.bookmark : Icons.bookmark_outline,
             ),
             label: 'Bookmark',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              _currentIndex == 0 ? Icons.person_outline : Icons.person,
+              _currentIndex == 2 ? Icons.person : Icons.person_outline,
             ),
             label: 'Profile',
           ),

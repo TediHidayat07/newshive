@@ -1,9 +1,12 @@
+import 'dart:developer';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:newshive/views/utils/form_validator.dart';
-import 'package:newshive/views/utils/helper.dart';
-import 'package:newshive/views/widgets/custom_form_field.dart';
+import '../routes/route_names.dart';
+import 'utils/helper.dart';
+import 'widgets/custom_form_field.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,15 +26,15 @@ class _HomeScreenState extends State<HomeScreen>
 
   List<Map<String, dynamic>> carouselItems = [
     {
-      'image': 'assets/images/tesla landscape.jpg',
+      'image': 'https://picsum.photos/id/189/300/200',
       'title': 'Lorem ipsum sit dolor',
     },
     {
-      'image': 'assets/images/tesla landscape.jpg',
+      'image': 'https://picsum.photos/id/191/300/200',
       'title': 'Ipsum sit dolor Amet',
     },
     {
-      'image': 'assets/images/tesla landscape.jpg',
+      'image': 'https://picsum.photos/id/195/300/200',
       'title': 'Sit dolor Amet consectetur',
     },
   ];
@@ -70,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen>
               keyboardType: TextInputType.url,
               textInputAction: TextInputAction.done,
               suffixIcon: const Icon(Icons.search),
-              validator: validateDescription, //! Ubah validator
+              validator: validateSearch,
             ),
             vsSmall,
             TabBar(
@@ -106,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen>
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Image.asset(
+                            child: Image.network(
                               item['image'],
                               width: 320.w,
                               height: 150.h,
@@ -132,46 +135,52 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
             vsSmall,
-            Text('Bookmark', style: subtitle1.copyWith(fontWeight: semibold)),
+            Text('All News', style: subtitle1.copyWith(fontWeight: semibold)),
             vsTiny,
             Expanded(
               child: ListView.builder(
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  return Card(
-                    elevation: 0,
-                    color: cWhite,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: 100.w,
-                          height: 100.h,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.asset(
-                              'assets/images/tesla potrait.jpg',
-                              fit: BoxFit.cover,
+                  return GestureDetector(
+                    onTap: () {
+                      log('Card onTap');
+                      context.pushNamed(RouteNames.detail);
+                    },
+                    child: Card(
+                      elevation: 0,
+                      color: cWhite,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: 100.w,
+                            height: 100.h,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.network(
+                                'https://picsum.photos/id/${189 + index}/300/200',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Tesla stock jumps after',
-                              style: subtitle1.copyWith(fontWeight: semibold),
-                            ),
-                            Text('Business, Technology', style: caption),
-                            vsLarge,
-                            Text('2020-12-01', style: caption),
-                          ],
-                        ),
-                        Icon(Icons.bookmark_outline),
-                      ],
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Tesla stock jumps after',
+                                style: subtitle1.copyWith(fontWeight: semibold),
+                              ),
+                              Text('Business, Technology', style: caption),
+                              vsLarge,
+                              Text('2020-12-01', style: caption),
+                            ],
+                          ),
+                          Icon(Icons.bookmark_outline),
+                        ],
+                      ),
                     ),
                   );
                 },

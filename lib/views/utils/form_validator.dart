@@ -80,3 +80,12 @@ String? validateDescription(String? value) {
     return null;
   }
 }
+
+String? validateSearch(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter keywords';
+  } else if (value.length < 3) {
+    return 'Keyword must be at least 3 characters';
+  }
+  return null;
+}

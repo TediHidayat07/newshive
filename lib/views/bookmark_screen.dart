@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:newshive/views/utils/form_validator.dart';
-import 'package:newshive/views/utils/helper.dart';
-import 'package:newshive/views/widgets/custom_form_field.dart';
+
+import 'utils/form_validator.dart';
+import 'utils/helper.dart';
+import 'widgets/custom_form_field.dart';
 
 class BookmarkScreen extends StatefulWidget {
   const BookmarkScreen({super.key});
@@ -45,7 +46,8 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
               hintText: 'Search',
               keyboardType: TextInputType.url,
               textInputAction: TextInputAction.done,
-              validator: validateDescription, //! Ubah validator
+              suffixIcon: const Icon(Icons.search),
+              validator: validateSearch,
             ),
             vsSmall,
             Expanded(
@@ -66,8 +68,8 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                           height: 100.h,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: Image.asset(
-                              'assets/images/tesla potrait.jpg',
+                            child: Image.network(
+                              'https://picsum.photos/id/${189 + index}/300/200',
                               fit: BoxFit.cover,
                             ),
                           ),

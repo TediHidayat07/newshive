@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:newshive/views/detail_screen.dart';
 import 'package:newshive/views/main_screen.dart';
 import '../views/introduction_screen.dart';
 import '../views/login_screen.dart';
@@ -52,6 +53,11 @@ class AppRouter {
           path: '/main',
           name: RouteNames.main,
           pageBuilder: (context, state) => MaterialPage(child: MainScreen()),
+        ),
+        GoRoute(
+          path: '/detail',
+          name: RouteNames.detail,
+          pageBuilder: (context, state) => MaterialPage(child: DetailScreen()),
         ),
       ],
     );

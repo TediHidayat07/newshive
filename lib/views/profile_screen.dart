@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:newshive/views/utils/helper.dart';
-import 'package:newshive/views/widgets/profile_menu_tile.dart';
+import 'utils/helper.dart';
 import 'widgets/profile_data_widget.dart';
+import 'widgets/profile_menu_tile.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -41,12 +41,17 @@ class ProfileScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Center(
-                        child: CircleAvatar(
-                          backgroundColor: cGrey,
-                          radius: 70.r,
-                          backgroundImage: AssetImage(
-                            'assets/images/news logo.png',
+                      GestureDetector(
+                        onTap: () {
+                          log('image onTap');
+                        },
+                        child: Center(
+                          child: CircleAvatar(
+                            backgroundColor: cGrey,
+                            radius: 70.r,
+                            backgroundImage: AssetImage(
+                              'assets/images/news logo.png',
+                            ),
                           ),
                         ),
                       ),

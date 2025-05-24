@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:newshive/routes/app_route.dart';
+
+import 'routes/app_route.dart';
 
 void main() {
   runApp(const MyApp());

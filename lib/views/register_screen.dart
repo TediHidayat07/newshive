@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../routes/route_names.dart';
-import 'widgets/custom_form_field.dart';
 import 'utils/form_validator.dart';
 import 'utils/helper.dart';
+import 'widgets/custom_form_field.dart';
 import 'widgets/primary_button.dart';
 import 'widgets/rich_text_widget.dart';
 

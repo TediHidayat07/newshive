@@ -1,12 +1,12 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newshive/views/widgets/custom_form_field.dart';
-import 'package:newshive/views/utils/form_validator.dart';
-import 'package:newshive/views/widgets/primary_button.dart';
-import 'package:newshive/views/widgets/rich_text_widget.dart';
 import '../routes/route_names.dart';
+import 'utils/form_validator.dart';
 import 'utils/helper.dart';
+import 'widgets/custom_form_field.dart';
+import 'widgets/primary_button.dart';
+import 'widgets/rich_text_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
