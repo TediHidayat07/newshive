@@ -1,13 +1,15 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newshive/views/utils/helper.dart';
-import 'package:newshive/views/widgets/rich_text_widget.dart';
+import 'package:intl/intl.dart';
+import '../models/article_model.dart';
+import 'utils/helper.dart';
+import 'widgets/rich_text_widget.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({super.key});
+  final Article article;
+  const DetailScreen({super.key, required this.article});
 
   @override
   Widget build(BuildContext context) {
@@ -26,66 +28,37 @@ class DetailScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 170.h,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  'https://picsum.photos/300/200',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+            if (article.urlToImage != null)
+              Image.network(article.urlToImage!, height: 170.h),
             vsSmall,
             Text(
-              'Trump\'s trade war hits his second-favorite set of wheels, the golf cart',
+              article.title ?? 'No title',
               style: headline4.copyWith(fontWeight: semibold),
             ),
-            vsSmall,
+            vsTiny,
             RichTextWidget(
-              textOne: 'Publish at ',
+              textOne: article.source?.name ?? 'Unknown Source',
               textStyleOne: subtitle2.copyWith(color: cBlack),
               cTextOne: cBlack,
-              textTwo: 'Mach 30, 2025',
+              textTwo:
+                  article.publishedAt != null
+                      ? DateFormat(
+                        ' yyyy-MM-dd',
+                      ).format(DateTime.parse(article.publishedAt!))
+                      : 'No Date',
               textStyleTwo: subtitle2.copyWith(
                 color: cBlack,
                 fontWeight: semibold,
               ),
               cTextTwo: cBlack,
             ),
-            RichTextWidget(
-              textOne: 'Source ',
-              textStyleOne: subtitle2.copyWith(color: cBlack),
-              cTextOne: cBlack,
-              textTwo: 'nbcnews.com',
-              textStyleTwo: subtitle2.copyWith(
-                color: cBlack,
-                fontWeight: semibold,
-              ),
-              cTextTwo: cBlack,
-            ),
-            RichTextWidget(
-              textOne: 'Category ',
-              textStyleOne: subtitle2.copyWith(color: cBlack),
-              cTextOne: cBlack,
-              textTwo: 'General, Politics',
-              textStyleTwo: subtitle2.copyWith(
-                color: cBlack,
-                fontWeight: semibold,
-              ),
-              cTextTwo: cBlack,
-            ),
-            vsSmall,
-            Text(
-              'Across the first 100 days of his second term and ups and downs in the level of tariff threats, President Trump, an avid golfer, has often been on the course and photographed in a golf cart, typically a cart made by domestic companies Club Car or E-Z-Go. Across the first 100 days of his second term and ups and downs in the level of tariff threats, President Trump, an avid golfer, has often been on the course and photographed in a golf cart, typically a cart made by domestic companies Club Car or E-Z-Go. Across the first 100 days of his second term and ups and downs in the level of tariff threats, President Trump, an avid golfer, has often been on the course and photographed in a golf cart, typically a cart made by domestic companies Club Car or E-Z-Go.',
-              style: subtitle2,
-            ),
+            vsTiny,
+            Text(article.content ?? 'No content available', style: subtitle2),
           ],
         ),
       ),

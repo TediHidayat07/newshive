@@ -3,8 +3,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:newshive/views/utils/form_validator.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import '../controllers/news_controller.dart';
 import '../routes/route_names.dart';
+import 'utils/form_validator.dart';
 import 'utils/helper.dart';
 import 'widgets/custom_form_field.dart';
 
@@ -43,6 +46,11 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     super.initState();
     tabController = TabController(length: 3, vsync: this);
+    //* Fetching data pertama kali di load
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // context.read<NewsController>().fetchTopHeadlines();
+      context.read<NewsController>().fetchEverything(query: 'technology');
+    });
   }
 
   @override
@@ -137,54 +145,106 @@ class _HomeScreenState extends State<HomeScreen>
             vsSmall,
             Text('All News', style: subtitle1.copyWith(fontWeight: semibold)),
             vsTiny,
-            Expanded(
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      log('Card onTap');
-                      context.pushNamed(RouteNames.detail);
-                    },
-                    child: Card(
-                      elevation: 0,
-                      color: cWhite,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: 100.w,
-                            height: 100.h,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                'https://picsum.photos/id/${189 + index}/300/200',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+            Consumer<NewsController>(
+              builder: (context, controller, child) {
+                if (controller.isLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                if (controller.errorMessage != null) {
+                  return Center(child: Text(controller.errorMessage!));
+                  // return Center(
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       Text(controller.errorMessage!),
+                  //       SizedBox(height: 20),
+                  //       ElevatedButton(
+                  //         onPressed: () => controller.fetchTopHeadlines(),
+                  //         child: Text('Retry'),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // );
+                }
+
+                if (controller.newsModel?.articles == null ||
+                    controller.newsModel!.articles!.isEmpty) {
+                  return const Center(child: Text('No news available'));
+                }
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: controller.newsModel!.articles!.length,
+                    itemBuilder: (context, index) {
+                      final article = controller.newsModel!.articles![index];
+                      return GestureDetector(
+                        onTap: () {
+                          log('Card onTap');
+                          context.pushNamed(RouteNames.detail, extra: article);
+                        },
+                        child: Card(
+                          elevation: 0,
+                          color: cWhite,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                'Tesla stock jumps after',
-                                style: subtitle1.copyWith(fontWeight: semibold),
+                              SizedBox(
+                                width: 100.w,
+                                height: 100.h,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child:
+                                      article.urlToImage != null
+                                          ? Image.network(
+                                            article.urlToImage!,
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (_, __, ___) => const Icon(
+                                                  Icons.broken_image_outlined,
+                                                ),
+                                          )
+                                          : const Icon(
+                                            Icons.image_not_supported_outlined,
+                                          ),
+                                ),
                               ),
-                              Text('Business, Technology', style: caption),
-                              vsLarge,
-                              Text('2020-12-01', style: caption),
+                              hsTiny,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      article.title ?? 'Unknown source',
+                                      style: caption.copyWith(
+                                        fontWeight: semibold,
+                                      ),
+                                    ),
+                                    vsLarge,
+                                    Text(
+                                      article.publishedAt != null
+                                          ? DateFormat('yyyy-MM-dd').format(
+                                            DateTime.parse(
+                                              article.publishedAt!,
+                                            ),
+                                          )
+                                          : 'No date',
+                                      style: caption,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Icon(Icons.bookmark_outline),
                             ],
                           ),
-                          Icon(Icons.bookmark_outline),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
             ),
           ],
         ),

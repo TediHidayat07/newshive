@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:provider/provider.dart';
+import 'controllers/news_controller.dart';
 import 'routes/app_route.dart';
 
 void main() {
@@ -20,14 +21,17 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) {
-        return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          title: 'News Hive',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
+        return MultiProvider(
+          providers: [ChangeNotifierProvider(create: (_) => NewsController())],
+          child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: 'News Hive',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              useMaterial3: true,
+            ),
+            routerConfig: AppRouter().goRouter,
           ),
-          routerConfig: AppRouter().goRouter,
         );
       },
     );

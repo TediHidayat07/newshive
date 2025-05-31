@@ -95,7 +95,8 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                       _currentPage == pageList.length - 1
                           ? PrimaryButton(
                             onPressed: () {
-                              context.goNamed(RouteNames.login);
+                              // context.goNamed(RouteNames.login);
+                              context.goNamed(RouteNames.main);
                             },
                             title: 'Get Started',
                           )

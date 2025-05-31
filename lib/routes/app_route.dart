@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:newshive/views/detail_screen.dart';
 import 'package:newshive/views/main_screen.dart';
+import '../models/article_model.dart';
 import '../views/introduction_screen.dart';
-import '../views/login_screen.dart';
-import '../views/register_screen.dart';
 import '../views/splash_screen.dart';
 import 'route_names.dart';
 
@@ -38,18 +37,6 @@ class AppRouter {
               (context, state) => MaterialPage(child: IntroductionScreen()),
         ),
         GoRoute(
-          path: '/login',
-          name: RouteNames.login,
-          pageBuilder: (context, state) => MaterialPage(child: LoginScreen()),
-          routes: [
-            GoRoute(
-              path: "/register",
-              name: RouteNames.register,
-              pageBuilder: (_, __) => MaterialPage(child: RegisterScreen()),
-            ),
-          ],
-        ),
-        GoRoute(
           path: '/main',
           name: RouteNames.main,
           pageBuilder: (context, state) => MaterialPage(child: MainScreen()),
@@ -57,7 +44,10 @@ class AppRouter {
         GoRoute(
           path: '/detail',
           name: RouteNames.detail,
-          pageBuilder: (context, state) => MaterialPage(child: DetailScreen()),
+          pageBuilder: (context, state) {
+            final article = state.extra as Article;
+            return MaterialPage(child: DetailScreen(article: article));
+          },
         ),
       ],
     );

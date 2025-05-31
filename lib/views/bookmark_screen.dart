@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'utils/form_validator.dart';
 import 'utils/helper.dart';
 import 'widgets/custom_form_field.dart';
